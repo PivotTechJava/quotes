@@ -3,12 +3,22 @@
  */
 package quotes;
 
+// import GSON
+import com.google.gson.Gson; 
+import com.google.gson.GsonBuilder;  
+import java.util.Arrays;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
+    Gson gson = new Gson();
+
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        
+        System.out.println(Arrays.toString(args));
+
     }
 }
