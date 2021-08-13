@@ -5,20 +5,58 @@ package quotes;
 
 // import GSON
 import com.google.gson.Gson; 
-import com.google.gson.GsonBuilder;  
-import java.util.Arrays;
+// import com.google.gson.GsonBuilder;  
+// import java.util.Arrays;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+    // public String getGreeting() {
+    //     return "Hello World!";
+    //}
 
-    Gson gson = new Gson();
+    // Gson gson = new Gson();
+
+    // Quote quote = gson.fromJson()
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        // System.out.println(new App().getGreeting());
         
-        System.out.println(Arrays.toString(args));
+        // System.out.println(Arrays.toString(args));
 
+        Gson gson = new Gson();
+        BufferedReader br = null;
+
+        try {
+            br = new BufferedReader(new FileReader("recentquotes.json"));
+            com.pivottech.Result result = gson.fromJson(br, com.pivottech.Result.class);
+
+            if (result != null) {
+                for (com.pivottech.Quote q : result.getQuote()) {
+                    System.out.println(q.getQuote() + " - " + q.getAuthor());
+                }
+            }
+
+
+
+
+
+        } catch (FileNotFoundException e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        } finally {
+            if(br != null) {
+                try {
+                    br.close();
+                } catch (I0Exception e) {
+                    //TODO: handle exception
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
